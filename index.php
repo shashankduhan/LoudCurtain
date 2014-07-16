@@ -13,19 +13,13 @@ if(isset($_SESSION['uid'])){
 			/*Spinal Cord*/
 			include('spinalcord.php');
 			/*End of Spinal Cord*/
+			
 }
 else{
-		if(isset($_COOKIE['guptank'])){//Checking if "remember password" option is on or not. (Auto logging) 
-			$exe = mysqli_query($link,"SELECT (`uid`) AS uid,(SELECT `firstname` FROM `lc_$database`.`user_details` WHERE `uid` = uid) AS fname, (SELECT `lastname` FROM `lc_$database`.`user_details` WHERE `uid` = uid) AS lname FROM `lc_$database`.`userbase` WHERE `email` = '$_COOKIE[naam_pta]' OR `nickname` = '$_COOKIE[naam_pta]';");
-			$r = mysqli_fetch_array($exe , MYSQL_NUM);
-			$_SESSION['uid'] = $r[0];
-			$_SESSION['userFname'] = $r[1];
-			$_SESSION['userLname'] = $r[2];
-			echo "<!DOCTYPE html><head><meta http-equiv=\"refresh\" content=\"1\"></head></html>";
-		}
-		else{
+		
+		
 			include('unlogged-index.php');
-		}
+		
 }
 
 mysqli_close($link);?>

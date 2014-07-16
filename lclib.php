@@ -34,5 +34,12 @@ function lc_request($values,$default){
 	return $value;
 }
 
+function timer($t){
+$tNow=time();
+if($tNow-$t < 100){return 'just now';}
+else if($tNow-$t<3600){return round(($tNow-$t)/60) .'mins ago';}
+else if($tNow-$t<40000){return round(($tNow-$t)/(60*60))."hrs ago";}
+else{return @date('l, dMy' , $t);}
+}
 //----Common Functions
 ?>

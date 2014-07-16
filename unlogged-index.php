@@ -1,3 +1,12 @@
+<?php
+	$news="SELECT * FROM `lc_$database`.`stories` WHERE `type` = '0' AND `attribute_one` = '0' ORDER BY `timestamp` DESC LIMIT 0,5;";
+    $news=mysqli_query($link,$news);$newsCount=0; $newsContent='';
+    while($newss=mysqli_fetch_array($news,MYSQL_NUM)){
+        $newsCount++;
+        $newsContent.='<div class="notice" id="noticebox_'.$newsCount.'" data-id="'.$newss[0].'" onclick="new lc.fullview.render({id:'.$newss[0].', type:\'news\', time:'.$newss[4].', title:\''.$newss[2].'\', interactive:false})"><i id="nb_clip'.$newsCount.'" ></i><span id="notice'.$newsCount.'_since">'.timer($newss[4]).'</span><br/><p id="notice_'.$newsCount.'">'.$newss[2].'</p></div>';
+    }
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,8 +21,8 @@
             header{margin:0 20px;background:#fff;width:83px;padding:29px 0px 15px 30px;display:inline-block;float:left;}
 /*+++++++++++NoticeBoard-style++++++++++++++++*/            
 
-			#noticeboard{width:357px;height:412px;position:relative;top:0;left:18%;float:center;display:inline-block;}
-            #nb_titleplate{padding:11px 0 8px;text-align:center;background:#534e4e;border:1px solid white;border-top:0;font-size:14px;z-index:2;position:relative;}
+			#noticeboard{width:357px;height:412px;position:absolute;top:0;right:-20px;display:inline-block;}
+            #nb_titleplate{padding:61px 0 8px;text-align:center;background:#FADDDD;border:1px solid white;border-top:0;font-size:12px;z-index:2;position:relative;color:#666;}
             #nb_slidable{position:relative;top:0px;z-index:0;}
             #nb_noticebox{height:250px;background:#9b9b9b;border:1px solid white;border-width:0 1px;overflow:auto;padding-top:0;}
             #nb_noticebox span{font-size: 11px;color:#d7d6d6;}
@@ -30,7 +39,7 @@
 
 /*+++++++++++Logbox-style++++++++++++++++*/
 
-			#logbox{width:250px;float:right;margin:0 30px;position:relative;}
+			#logbox{width:250px;float:right;margin:0 30px;position:relative;z-index:10;}
             #logbox_inner{background:#c9e4f9;border:1px solid #e6f4ff;border-top:0;}
             #fblogin{border:1px solid white;padding:5px 12px;width:145px;background:#ddf6ff;color:#7aacd6;cursor:pointer;}
             #emailbox input, #passbox input{border:0;width:170px;text-align:center;height:25px;}
@@ -110,12 +119,12 @@
     </head>
     <body>
         <div id="mainbox" style="background-size:1280px;background:url('http://loudc.com/pic/favicon.ico')center no-repeat;">
-            <header id="lc_logo" style="top:0px;position:relative;"><img src="http://<?php echo $domain;?>/pic/favicon.ico"/></header>
-            <div id="noticeboard" style="top:0px;position:relative;">
+           
+            <div id="noticeboard" style="top:0px;position:absolute;">
                 <div id="nb_titleplate">Notice Board</div>
                 <div id="nb_slidable" style="top:0px;">
                         <div id="nb_noticebox" align="left">
-                            <?php echo "<br/><br/><div align=\"center\">Not working</div>"?>
+                            <?php echo $newsContent;?>
                         </div>
                     <div id="nb_moreButton">See all previous Notices</div>
                     <div id="nb_packupswitch" align="center">
