@@ -25,7 +25,7 @@ if($CurntPass == $password)
 			$_SESSION['uid'] = $r[0];
 			$_SESSION['userFname'] = $r1[0];
 			$_SESSION['userLname'] = $r1[1];
-           
+            $_SESSION['init'] = $r[9]; //it will determine whether setup required or not
 		 echo "{\"m\" : \"\" , \"r\" : \"1\"}"; 
     }
 else{

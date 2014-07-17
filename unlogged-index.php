@@ -118,7 +118,6 @@
           logy.packup=function(){
 				new lc.indicator.stop('Error');window.indicDotIni=0;
                 new lc.anim.slide({id:'logbox',distance:4,dir:'^',framegap:3,reference:'top',stopAt:-280,AFx:function(r){}});
-                new lc.anim.slide({id:'lc_logo',distance:3,dir:'^',framegap:30,reference:'top',stopAt:-180,AFx:function(r){}});
                 new lc.anim.slide({id:'noticeboard',distance:3,dir:'^',framegap:3,reference:'top',stopAt:-580,AFx:function(r){window.location.reload();}});
 				
             }
