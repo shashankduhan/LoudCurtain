@@ -1,9 +1,13 @@
 <?php
+	//Fetching Public Notifications (Notice)
 	$news="SELECT * FROM `lc_$database`.`stories` WHERE `type` = '0' AND `attribute_one` = '0' ORDER BY `timestamp` DESC LIMIT 0,5;";
     $news=mysqli_query($link,$news);$newsCount=0; $newsContent='';
     while($newss=mysqli_fetch_array($news,MYSQL_NUM)){
         $newsCount++;
-        $newsContent.='<div class="notice" id="noticebox_'.$newsCount.'" data-id="'.$newss[0].'" onclick="new lc.fullview.render({id:'.$newss[0].', type:\'news\', time:'.$newss[4].', title:\''.$newss[2].'\', interactive:false})"><i id="nb_clip'.$newsCount.'" ></i><span id="notice'.$newsCount.'_since">'.timer($newss[4]).'</span><br/><p id="notice_'.$newsCount.'">'.$newss[2].'</p></div>';
+        $newsContent.='<div class="notice" id="noticebox_'.$newsCount.'" data-id="'.$newss[0].'" onclick="new lc.fullview.render({id:'.$newss[0].', type:\'news\', time:'.$newss[4].', title:\''.$newss[2].'\', interactive:false})">
+						<i id="nb_clip'.$newsCount.'" ></i>
+						<span id="notice'.$newsCount.'_since">'.timer($newss[4]).'</span><br/>
+						<p id="notice_'.$newsCount.'">'.$newss[2].'</p></div>';
     }
 ?>
 
@@ -21,7 +25,7 @@
             header{margin:0 20px;background:#fff;width:83px;padding:29px 0px 15px 30px;display:inline-block;float:left;}
 /*+++++++++++NoticeBoard-style++++++++++++++++*/            
 
-			#noticeboard{width:357px;height:412px;position:absolute;top:0;right:-20px;display:inline-block;}
+			#noticeboard{width:357px;height:412px;position:absolute;top:0;right:-25px;display:inline-block;}
             #nb_titleplate{padding:61px 0 8px;text-align:center;background:#FADDDD;border:1px solid white;border-top:0;font-size:12px;z-index:2;position:relative;color:#666;}
             #nb_slidable{position:relative;top:0px;z-index:0;}
             #nb_noticebox{height:250px;background:#9b9b9b;border:1px solid white;border-width:0 1px;overflow:auto;padding-top:0;}
@@ -40,11 +44,11 @@
 /*+++++++++++Logbox-style++++++++++++++++*/
 
 			#logbox{width:250px;float:right;margin:0 30px;position:relative;z-index:10;}
-            #logbox_inner{background:#c9e4f9;border:1px solid #e6f4ff;border-top:0;}
+            #logbox_inner{background:#c9e4f9;border:1px solid #e6f4ff;border-top:0;border-radius:0 0 24px 24px;}
             #fblogin{border:1px solid white;padding:5px 12px;width:145px;background:#ddf6ff;color:#7aacd6;cursor:pointer;}
             #emailbox input, #passbox input{border:0;width:170px;text-align:center;height:25px;}
             #login{cursor:pointer;border:1px solid #71b453;background:#f2f2f2;padding:3px 6px;margin-bottom:25px;color:#698fbc;width:55px;}
-            #Error{background:rgb(255, 255, 182);color:#666;text-align:center;font-size:11px;padding: 3px 5px;border-top: 3px solid white;display:none;}
+            #Error{background:rgb(255, 255, 182);color:#666;text-align:center;font-size:11px;padding: 3px 5px;border-top: 3px solid white;display:none;border-radius:0 0 24px 24px;}
             .forminput_box{border:1px solid white;width:175px;padding:2px;line-height:18px;}          
 
 
@@ -57,7 +61,7 @@
         <script type="text/javascript">
             new lc.sensor.ini();window.indx = new Object();
             var nb_status=1,notice_count=<?php $newsCount=10; echo $newsCount;?>,lb_status=0;
-            lc.sensor.act.click=function(r){
+            lc.sensor.act.click=function(r){//Click Sensor Actions
                 if(tClick.id == 'nb_slider'){
                     if(window.nb_status == 1){
                         new lc.anim.slide({id:'nb_slidable',distance:12,dir:'^',framegap:7,reference:'top',stopAt:-300,AFx:function(r){x('nb_slider').className='down_arrow_blue';window.nb_status=0;}}); x('nb_titleplate').style.cursor='pointer';}
@@ -78,17 +82,20 @@
                     else{new logy.logy();}
                 }
             }
-            
+            //Making Login box Slidable
             indx.slidelogbox={};
             indx.slidelogbox.up=function(){
                 new lc.anim.slide({id:'logbox',distance:2,dir:'^',framegap:3,reference:'top',stopAt:-204,AFx:function(r){ x('log_slider').className='down_arrow_white';hidee('Error');}});
                 new lc.anim.prop({id:'login', type:'-', propname:'marginBottom', stopAt:7, framegap:10, jump:1, AFx:function(){}});
+				new lc.anim.prop({id:'noticeboard', type:'+', propname:'opacity', stopAt:0.99, framegap:2, jump:0.01, float:true, unit:'', AFx:function(){}});
             }
             indx.slidelogbox.down=function(){
                 new lc.anim.slide({id:'logbox',distance:2,dir:'v',framegap:3,reference:'top',stopAt:0,AFx:function(r){x('log_slider').className='up_arrow_dimgrey';}});
                 new lc.anim.prop({id:'login', type:'+', propname:'marginBottom', stopAt:25, framegap:10, jump:1, AFx:function(){x('email').focus();}});
+				new lc.anim.prop({id:'noticeboard', type:'-', propname:'opacity', stopAt:0.33, framegap:2, jump:0.01, float:true, unit:'', AFx:function(){}})
 				
             }
+			//Login Functionality
             var logy={};
             logy.logy=function(){
                 var err = x('Error');showwb('Error');
@@ -120,7 +127,7 @@
     <body>
         <div id="mainbox" style="background-size:1280px;background:url('http://loudc.com/pic/favicon.ico')center no-repeat;">
            
-            <div id="noticeboard" style="top:0px;position:absolute;">
+            <div id="noticeboard" style="top:0px;position:absolute;opacity:1;">
                 <div id="nb_titleplate">Notice Board</div>
                 <div id="nb_slidable" style="top:0px;">
                         <div id="nb_noticebox" align="left">

@@ -170,17 +170,23 @@ else{setTimeout("new lc.anim.slide({id:'"+a.id+"',framegap:"+a.framegap+",distan
     //      AFx = What to do when this task is done.*/
 }
 
-
-lc.anim.prop = function(a){ //{ id:id of object,  type:+ or - , propname: name of property eg. margin, stopAt: Where to stop, framegap: Time between two frames, jump: jump of value to made in each frame, AFx: After Effects }
-    var o=x(a.id);var val=o.style[a.propname];val=parseInt(val.slice(0 , -2));
-    var reFx="new lc.anim.prop({id:'"+a.id+"', type:'"+a.type+"', propname:'"+a.propname+"', stopAt:"+a.stopAt+", framegap:"+a.framegap+", jump:"+a.jump+", AFx:"+a.AFx+"})";
+window.reFx=new Array();
+lc.anim.prop = function(a){ //{ id:id of object,  type:+ or - , propname: name of property eg. margin, stopAt: Where to stop, framegap: Time between two frames, jump: jump of value to made in each frame, float:if values are in decimal(true if so; default is false), unit:measuring unit (eg. px, em etc.; default is px) AFx: After Effects }
+    var o=x(a.id);var val=o.style[a.propname];
+    if(typeof a.unit === 'undefined'){a.unit='px';}
+    if(typeof a.float === 'undefined'){a.float=false;}
+    window.reFx[a.propname]="new lc.anim.prop({id:'"+a.id+"', type:'"+a.type+"', propname:'"+a.propname+"', stopAt:"+a.stopAt+", framegap:"+a.framegap+", jump:"+a.jump+", float:"+a.float+", unit:'"+a.unit+"', AFx:"+a.AFx+"})";
+    if(a.unit != ''){val=val.slice(0 , -(a.unit.length));}
+    if(a.float == true){val=parseFloat(val);}else{val=parseInt(val);}
     if(a.type=="+" && val < a.stopAt){
-        o.style[a.propname]=parseInt(val+a.jump)+'px';
-        setTimeout(reFx,a.framegap);
+        if(a.float == true){val=parseFloat(val+a.jump);}else{val=parseInt(val+a.jump);}
+        o.style[a.propname]=val+a.unit;
+        setTimeout(window.reFx[a.propname],a.framegap);
     }else if(a.type=="-" && val > a.stopAt){
-        o.style[a.propname]=parseInt(val-a.jump)+'px';
-        setTimeout(reFx,a.framegap);
-    }else{o.style[a.propname]=a.stopAt+'px';new a.AFx;}
+        if(a.float == true){ val=parseFloat(val-a.jump);}else{val=parseInt(val-a.jump);}
+        o.style[a.propname]=val+a.unit;
+        setTimeout(window.reFx[a.propname],a.framegap);
+    }else{o.style[a.propname]=a.stopAt+a.unit;new a.AFx;}
 }
 lc.anim.color = function(a){
     
