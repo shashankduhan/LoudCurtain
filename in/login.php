@@ -20,7 +20,7 @@ $LastPass = sizeof($passs) - 1;
 $CurntPass = $passs[$LastPass]; 
 if($CurntPass == $password)
     {    
-		 	$exe = mysqli_query($link,"SELECT `firstname`, `lastname` FROM `lc_$database`.`user_details` WHERE `uid` = '$r[0]' ;");
+		 	$exe = mysqli_query($link,"SELECT `firstname`, `lastname` FROM `lc_$database`.`avatar` WHERE `uid` = '$r[0]' ;");
 			$r1 = mysqli_fetch_array($exe , MYSQL_NUM);
 			$_SESSION['uid'] = $r[0];
 			$_SESSION['userFname'] = $r1[0];

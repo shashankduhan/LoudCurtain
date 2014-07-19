@@ -1,1 +1,1 @@
-The Setup
+<?php echo errormsg('Setup script is empty');?>

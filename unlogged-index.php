@@ -124,7 +124,7 @@
         </script>
     </head>
     <body>
-        <div id="mainbox" style="background-size:1280px;background:url('http://loudc.com/pic/favicon.ico')center no-repeat;">
+        <div id="mainbox" style="background-size:1280px;background:url('http://<?php echo $domian;?>/pic/favicon.ico')center no-repeat;">
            
             <div id="noticeboard" style="top:0px;position:absolute;opacity:1;">
                 <div id="nb_titleplate">Notice Board</div>

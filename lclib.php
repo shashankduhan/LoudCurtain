@@ -35,11 +35,16 @@ function lc_request($values,$default){
 }
 
 function timer($t){
-$tNow=time();
-if($tNow-$t < 100){return 'just now';}
-else if($tNow-$t<3600){return round(($tNow-$t)/60) .'mins ago';}
-else if($tNow-$t<40000){return round(($tNow-$t)/(60*60))."hrs ago";}
-else{return @date('l, dMy' , $t);}
+    $tNow=time();
+    if($tNow-$t < 100){return 'just now';}
+    else if($tNow-$t<3600){return round(($tNow-$t)/60) .'mins ago';}
+    else if($tNow-$t<40000){return round(($tNow-$t)/(60*60))."hrs ago";}
+    else{return @date('l, dMy' , $t);}
+}
+
+function errormsg($msg){
+    return '<div style="margin:25px auto;position:relative;max-width:512px;padding:12px;text-align:center;font-family: Arial;font-size: 24px;background: #F7EDD6;color: #B4736D;border: 1px solid #DAA460;"><span style="font-size: 12px;color: #666;">Error</span><br>'.$msg.'</div>';
+    
 }
 //----Common Functions
 ?>
