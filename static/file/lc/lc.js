@@ -641,7 +641,7 @@ function searchNode(a){
 	}else if(window.tClick === a.in){window.isInIt=true;}else{}
 }
 function round(val, precision) {power = Math.pow (10, precision);poweredVal = Math.ceil (val * power);result = poweredVal / power;return result;}
-lc.newelement=function(a){
+lc.newelement=function(a){//a= {type, id, class, (if input)-inputtype,  name, value}
     var newy = document.createElement(a.type);newy.id=a.id;
     if(typeof a.class != 'undefined'){newy.className=a.class;}
     if(a.type == 'input'){newy.type=a.inputtype;newy.name=a.name;if(typeof a.value != 'undefined'){newy.value=a.value;}}
