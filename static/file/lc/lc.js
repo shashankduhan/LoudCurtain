@@ -468,28 +468,34 @@ lc.scroll.reset=function(e)
 
 /*========================++LCTimer++=======================*/
 
-lc.timer=function(pt){
-var time = Math.round((new Date()).getTime() / 1000);
-var rendertime;
-if(time-pt <= 24){rendertime='just now';}
-else if(time-pt <= 60-1){rendertime=Math.round((time-pt))+' seconds ago';}
-else if(time-pt <= 120-1){rendertime=1+' minute ago';}
-else if(time-pt <= 60*60-1){rendertime=Math.round((time-pt)/60)+' minutes ago';}
-else if(time-pt <= (60*60*2)-(60*60*0.55)){rendertime=1+' hour ago';}
-else if(time-pt <= 60*60*12-1){rendertime=Math.round((time-pt)/(60*60))+' hours ago';}
-else{
-var d = new Date(pt*1000);
-var months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
-var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-     var year = d.getFullYear();
-     var month = months[d.getMonth()];
-     var date = d.getDate();
-     var hour = d.getHours();
-     var min = d.getMinutes();
-     var sec = d.getSeconds();
-    var day = days[d.getDay()];
-rendertime=day+' '+date+'-'+month+(year-2000)+' &nbsp; '+hour+':'+min;}
-return rendertime;
+lc.timer=function(pt,outputType){
+	var d = new Date(pt*1000);
+	var months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+	var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+	     var year = d.getFullYear();
+	     var month = months[d.getMonth()];
+	     var date = d.getDate();
+	     var hour = d.getHours();
+	     var min = d.getMinutes();
+	     var sec = d.getSeconds();
+	    var day = days[d.getDay()];
+	if(typeof outputType == 'undefined'){
+		var time = Math.round((new Date()).getTime() / 1000);
+		var rendertime;
+		if(time-pt <= 24){rendertime='just now';}
+		else if(time-pt <= 60-1){rendertime=Math.round((time-pt))+' seconds ago';}
+		else if(time-pt <= 120-1){rendertime=1+' minute ago';}
+		else if(time-pt <= 60*60-1){rendertime=Math.round((time-pt)/60)+' minutes ago';}
+		else if(time-pt <= (60*60*2)-(60*60*0.55)){rendertime=1+' hour ago';}
+		else if(time-pt <= 60*60*12-1){rendertime=Math.round((time-pt)/(60*60))+' hours ago';}
+		else{
+			rendertime=day+' '+date+'-'+month+(year-2000)+' &nbsp; '+hour+':'+min;}
+			return rendertime;
+	}
+	else if(outputType == 'object'){
+		var rendertime = {'date': date, 'month': month, 'year': year, 'hour': hour, 'min': min, 'sec': sec, 'day': day};
+		return rendertime;
+	}
 }
 
 /*--------------++FullView++----------------*/
