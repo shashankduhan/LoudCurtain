@@ -1,1 +1,1 @@
-{names: ["Sahil", "Priya", "Rohan"], age:[23, 26, 18], friends: [{names:["Kiran", "Sohail"], age:[15, 19]}, {names:["Fanny", "Ram"], age:[24, 70]}, {names:["Ramehar", "Kelo", "Raghu"], age:[16, 87, 34]}]}
+{"names": ["Sahil", "Priya", "Rohan"], "age":[23, 26, 18], "friends": [{"names":["Kiran", "Sohail"], "age":[15, 19]}, {"names":["Fanny", "Ram"], "age":[24, 70]}, {"names":["Ramehar", "Kelo", "Raghu"], "age":[16, 87, 34]}]}
